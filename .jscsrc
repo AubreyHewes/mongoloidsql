@@ -1,0 +1,11 @@
+{
+  "preset": "google",
+  "disallowSpacesInFunctionDeclaration": null,
+  "disallowSpacesInFunctionExpression": null,
+  "disallowSpacesInAnonymousFunctionExpression": null,
+  "validateQuoteMarks": null,
+  "maximumLineLength": 120,
+  "excludeFiles": [
+    "**/node_modules/**/*.js"
+  ]
+}
