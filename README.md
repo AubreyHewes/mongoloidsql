@@ -121,3 +121,13 @@ SELECT * FROM `table` WHERE (`col1` = 1 AND ((`col2` = 2 OR `col3` = 3) AND `col
 
  * https://docs.mongodb.org/manual/tutorial/query-documents/
  * https://docs.mongodb.org/manual/reference/operator/query/
+
+# What is not (yet) implemented/supported
+
+ * [Logical Query Operators](https://docs.mongodb.org/manual/reference/operator/query-logical/)
+    * [$not](https://docs.mongodb.org/manual/reference/operator/query/not/#op._S_not)
+    * [$nor](https://docs.mongodb.org/manual/reference/operator/query/nor/#op._S_nor)
+ * [Evaluation Query Operators](https://docs.mongodb.org/manual/reference/operator/query-evaluation/)
+    * [$mod](https://docs.mongodb.org/manual/reference/operator/query/mod/#op._S_mod)
+    * [$text](https://docs.mongodb.org/manual/reference/operator/query/text/#op._S_text)
+    * [$where](https://docs.mongodb.org/manual/reference/operator/query/where/#op._S_where)
