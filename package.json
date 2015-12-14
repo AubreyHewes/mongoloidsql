@@ -20,7 +20,8 @@
     "url": "git://github.com/AubreyHewes/mongoloidsql.git"
   },
   "dependencies": {
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6"
   },
   "devDependencies": {
     "jscs": "^2.6.0",

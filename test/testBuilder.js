@@ -2,6 +2,7 @@
 "use strict";
 
 var assert = require("assert");
+var moment = require("moment");
 
 var builder = require("../src/builder.js");
 
@@ -179,20 +180,24 @@ describe("builder.js", function() {
 
   });
 
-  describe("Value Casting", function () {
+  describe("Native type value", function () {
 
-    it("should return integer", function () {
+    it("integer should return integer evaluation", function () {
       assert.equal(builder({"test": 1}), "`test` = 1");
     });
 
-    it("should return is_null", function () {
+    it("null should return IS NULL evaluation", function () {
       assert.equal(builder({"test": null}), "`test` IS NULL");
     });
 
-    it("should return boolean", function () {
+    it("boolean should return boolean evaluation", function () {
       assert.equal(builder({"test": true}), "`test` = true");
     });
 
+    it("date should return datetime evaluation", function () {
+      //http://dev.mysql.com/doc/refman/5.7/en/date-and-time-literals.html
+      assert.equal(builder({"test": moment('2015-12-14T20:50:00').toDate()}), '`test` = "2015-12-14 20:50:00"');
+    });
   });
 
 });

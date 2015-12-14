@@ -1,13 +1,22 @@
 "use strict";
 
-// value/column quoter..
-
-// current is value as "value" and column as `column`
-
-// with value if it is a boolean or number then will be boolean or number (in sql)
-// if value is not a string then will be null.. this is opinionated and subject to change
+/**
+ * value/column quoter..
+ *
+ * @opinionated mysql
+ *
+ * current is value as "value" and column as `column`
+ *
+ * with value if it is a boolean or number then will be boolean or number (in sql)
+ * if value is not a string (or above) then will be null.. this is opinionated and subject to change.
+ *
+ * @todo remove translation (i.e. date) to translator
+ */
 
 var _ = require("lodash");
+var moment = require("moment");
+
+var DATETIME_FORMAT = 'YYYY-MM-DD H:mm:ss';
 
 //http://stackoverflow.com/questions/7744912/making-a-javascript-string-sql-friendly
 //http://php.net/manual/en/function.mysql-real-escape-string.php
@@ -51,8 +60,16 @@ function value(val) {
     case "number":
       return val;
 
+    case "Date":
+      return val;
+
     case "boolean":
       return val ? "true" : "false";
+  }
+
+  if (val instanceof Date) {
+    //http://dev.mysql.com/doc/refman/5.7/en/date-and-time-literals.html
+    val = moment(val).format(DATETIME_FORMAT);
   }
 
   if (!val || !val.replace) {

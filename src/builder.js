@@ -358,6 +358,10 @@ function handleExpression(value, field, _field) {
     return handleWhereNullClause(field);
   }
 
+  if (value instanceof Date) {
+    return c$eq(field, value);
+  }
+
   if (_.isObject(value)) {
     return handleObjectOfClauses(value, field, _field);
   }
@@ -367,7 +371,6 @@ function handleExpression(value, field, _field) {
   //}
 
   // DEFAULT... $eq...
-
   return c$eq(field, value);
 }
 
