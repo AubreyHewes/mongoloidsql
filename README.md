@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AubreyHewes/mongoloidsql.svg?branch=master)](https://travis-ci.org/AubreyHewes/mongoloidsql)
+
 # Mongo selector SQL builder (WIP)
 
 Build an SQL selector (`WHERE`) from a Mongo selector.
