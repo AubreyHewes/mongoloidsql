@@ -1,6 +1,6 @@
 {
   "name": "mongoloidsql",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Build a SQL 'where' from a mongo selector",
   "main": "./src/builder.js",
   "scripts": {
