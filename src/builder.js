@@ -206,9 +206,45 @@ function l$nor(expressions) {
   return '$nor is NOT IMPLEMENTED';
 }
 
-function handleWhereNullClause(field) {
-  return quote.column(field) + " IS NULL";
+//
+// Evaluation Query Operators
+//
+// https://docs.mongodb.org/manual/reference/operator/query-evaluation/
+
+/**
+ * Selects documents where values match a specified regular expression.
+ *
+ * @see https://docs.mongodb.org/manual/reference/operator/query/regex/#op._S_regex
+ *
+ * @opinionated mysql
+ *
+ * @see http://dev.mysql.com/doc/refman/5.7/en/regexp.html
+ * @see http://dev.mysql.com/doc/refman/5.7/en/pattern-matching.html
+ *
+ * @param {String} field
+ * @param {String|RegExp} value
+ * @param {String} options
+ *
+ * @returns {string}
+ */
+function e$regex(field, value, options) {
+
+  if (value instanceof RegExp) {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/toString
+    var parts = value.toString().split('/');
+    parts.shift(); // remove empty first
+    value = parts.shift(); // get the regexp
+    options = parts.shift(); // get the options
+  }
+
+  // todo kelevera to get the use either LIKE, or RLIKE/REGEXP
+  return quote.column(field) + ' REGEXP ' + (options && options.indexOf('i') !== -1 ? '' : 'BINARY ') +
+    quote.value(value);
 }
+
+//
+// Other
+//
 
 function logical(clauses, type) {
 
@@ -219,9 +255,19 @@ function logical(clauses, type) {
   return "(" + expr + ")";
 }
 
+function handleWhereNullClause(field) {
+  return quote.column(field) + " IS NULL";
+}
+
 function handleObjectOfClauses (clauses, _field, joiner) {
 
   var expr = [];
+
+  if (clauses.$regex && clauses.$options) {
+    expr.push(e$regex(_field, clauses.$regex, clauses.$options));
+    delete clauses.$regex;
+    delete clauses.$options;
+  }
 
   Object.keys(clauses).forEach(function (field) {
     expr.push(handleExpression(clauses[field], field, _field));
@@ -294,6 +340,14 @@ function handleExpression(value, field, _field) {
 
   if (field === "$nor") {
     return l$nor(value);
+  }
+
+  //
+  // Evaluation Query Operators
+  //
+
+  if (field === "$regex" || value instanceof RegExp) {
+    return e$regex(_field, value, '');
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////

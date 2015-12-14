@@ -6,56 +6,71 @@ var builder = require("../src/builder.js");
 
 describe("builder.js", function() {
 
-  describe("Comparison Query Operators", function () {
+  describe('SPEC', function () {
 
-    it("$eq", function () {
-      assert.equal('`test` = "test"', builder({"test": "test"}));
-      assert.equal('`test` = "test"', builder({"test": {"$eq": "test"}}));
+    describe("Comparison Query Operators", function () {
+
+      it("$eq", function () {
+        assert.equal('`test` = "test"', builder({"test": "test"}));
+        assert.equal('`test` = "test"', builder({"test": {"$eq": "test"}}));
+      });
+
+      it("$gt", function () {
+        assert.equal("`test` > 1", builder({"test": {"$gt": 1}}));
+      });
+
+      it("$gte", function () {
+        assert.equal("`test` >= 1", builder({"test": {"$gte": 1}}));
+      });
+
+      it("$lt", function () {
+        assert.equal("`test` < 1", builder({"test": {"$lt": 1}}));
+      });
+
+      it("$lte", function () {
+        assert.equal("`test` <= 1", builder({"test": {"$lte": 1}}));
+      });
+
+      it("$ne", function () {
+        assert.equal("`test` != 1", builder({"test": {"$ne": 1}}));
+      });
+
+      it("$in", function () {
+        assert.equal("`test` IN (1)", builder({"test": {"$in": [1]}}));
+      });
+
+      it("$nin", function () {
+        assert.equal("`test` NOT IN (1)", builder({"test": {"$nin": [1]}}));
+      });
+
     });
 
-    it("$gt", function () {
-      assert.equal("`test` > 1", builder({"test": {"$gt": 1}}));
+    describe("Logical Query Operators", function () {
+
+      it("$or", function () {
+        assert.equal("(`col1` = 1 OR `col2` = 2)", builder({"$or": [{"col1": 1}, {"col2": 2}]}));
+      });
+
+      it("$and", function () {
+        assert.equal("(`col1` = 1 AND `col2` = 2)", builder({"$and": [{"col1": 1}, {"col2": 2}]}));
+      });
+
+      it("$not"); // not yet implemented
+
+      it("$nor"); // not yet implemented
+
     });
 
-    it("$gte", function () {
-      assert.equal("`test` >= 1", builder({"test": {"$gte": 1}}));
+    describe("Evaluation Query Operators", function () {
+
+      it("$regex", function () {
+        assert.equal('`test` REGEXP BINARY "value.*"', builder({"test": /value.*/}));
+        assert.equal('`test` REGEXP "value.*"', builder({"test": /value.*/i}));
+        assert.equal('`test` REGEXP BINARY "value.*"', builder({"test": {"$regex": "value.*"}}));
+        assert.equal('`test` REGEXP "value.*"', builder({"test": {"$regex": "value.*", $options: 'i'}}));
+      });
+
     });
-
-    it("$lt", function () {
-      assert.equal("`test` < 1", builder({"test": {"$lt": 1}}));
-    });
-
-    it("$lte", function () {
-      assert.equal("`test` <= 1", builder({"test": {"$lte": 1}}));
-    });
-
-    it("$ne", function () {
-      assert.equal("`test` != 1", builder({"test": {"$ne": 1}}));
-    });
-
-    it("$in", function () {
-      assert.equal("`test` IN (1)", builder({"test": {"$in": [1]}}));
-    });
-
-    it("$nin", function () {
-      assert.equal("`test` NOT IN (1)", builder({"test": {"$nin": [1]}}));
-    });
-
-  });
-
-  describe("Logical Query Operators", function () {
-
-    it("$or", function () {
-      assert.equal("(`col1` = 1 OR `col2` = 2)", builder({"$or": [{"col1": 1}, {"col2": 2}]}));
-    });
-
-    it("$and", function () {
-      assert.equal("(`col1` = 1 AND `col2` = 2)", builder({"$and": [{"col1": 1}, {"col2": 2}]}));
-    });
-
-    it("$not"); // not yet implemented
-
-    it("$nor"); // not yet implemented
 
   });
 
