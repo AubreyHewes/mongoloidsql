@@ -15,6 +15,7 @@
   ],
   "author": "Aubrey Hewes <aubrey@hewes.org.uk>",
   "license": "MIT",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git://github.com/AubreyHewes/mongoloidsql.git"
