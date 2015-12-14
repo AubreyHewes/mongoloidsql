@@ -4,6 +4,8 @@
 
 Build an SQL selector (`WHERE`) from a Mongo selector.
 
+**NOTE: Currently the produced SQL is [mysql](http://dev.mysql.com/doc/refman/en/select.html) opinionated**
+
 # Install
 
     npm install mongoloidsql
