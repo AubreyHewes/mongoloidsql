@@ -131,3 +131,4 @@ SELECT * FROM `table` WHERE (`col1` = 1 AND ((`col2` = 2 OR `col3` = 3) AND `col
     * [$mod](https://docs.mongodb.org/manual/reference/operator/query/mod/#op._S_mod)
     * [$text](https://docs.mongodb.org/manual/reference/operator/query/text/#op._S_text)
     * [$where](https://docs.mongodb.org/manual/reference/operator/query/where/#op._S_where)
+    * [$regexp](https://docs.mongodb.com/manual/reference/operator/query/regex/#op._S_regex)
