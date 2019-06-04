@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/AubreyHewes/mongoloidsql.svg?branch=master)](https://travis-ci.org/AubreyHewes/mongoloidsql)
+[![spotify](https://img.shields.io/badge/spotify-devo-brightgreen.svg)](https://open.spotify.com/track/4HdH7cuu0K7w8qNu16g7gg?si=sg0KZJ34RxSqLF7NCRxtUA)
 
 # Mongo selector SQL builder (WIP)
 
